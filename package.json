@@ -1,23 +1,19 @@
 {
-  "name": "react-webpack-babel",
-  "version": "0.0.3",
-  "description": "React Webpack Babel Starter Kit",
+  "name": "pokeapiproject",
+  "version": "0.0.1",
+  "description": "Pokémon API Based Project",
   "main": "''",
   "scripts": {
     "build": "webpack --config webpack.production.config.js --progress --profile --colors",
     "start": "webpack-dev-server --progress --profile --colors",
     "lint": "eslint --ext js --ext jsx src || exit 0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alicoding/react-webpack-babel"
-  },
-  "author": "Ali Al Dallal",
+  "author": "Luke Todd",
   "license": "MIT",
-  "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.3",
     "node-sass": "^3.9.2",
+    "pokemon-sprites": "pokeapi/sprites",
     "react": "15.3.0",
     "react-dom": "15.3.0",
     "sass-loader": "^4.0.1"

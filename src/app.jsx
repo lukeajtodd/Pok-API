@@ -1,16 +1,74 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './index.scss';
 import React from 'react';
+import RandomPoke from './components/RandomPoke.jsx';
 
-export default class App extends React.Component {
-  render() {
-    return (
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+// export default class App extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+// 		this.state = { randomName: '', randomSprite: '' }
+// 		this.getRandomPoke = this.getRandomPoke.bind(this);
+// 	}
+// 	componentWillMount() {
+// 		this.state = { randomName: this.getRandomPoke() }
+// 	}
+// 	getRandomPoke() {
+// 		let randNo = Math.floor(Math.random() * 700) + 21;
+// 		const self = this;
+
+// 		let xhr = new XMLHttpRequest();
+// 		xhr.addEventListener('load', function() {
+// 			self.state = { randomName: JSON.parse(this.responseText).name.capitalize() };
+// 			self.state = { randomSprite: './pokemon-sprites/sprites/pokemon/model/' + randNo + '.png' };
+// 		});
+// 		xhr.open('GET', 'http://pokeapi.co/api/v2/pokemon/' + randNo);
+// 		xhr.send();
+// 	}
+// 	render() {
+// 		return (
+// 			<div>
+// 				<header>
+// 					<h1>PokéAPI!</h1>
+// 				</header>
+// 				<RandomPoke name={this.state.randomName} sprite={this.state.randomSprite} />
+// 			</div>
+// 		)
+// 	}
+// }
+
+const App = React.createClass({
+	getInitialState: function() {
+		return { randomName: '', randomSprite: '' }
+	},
+	componentWillMount: function() {
+		this.setState({ randomName: this.getRandomPoke() });
+	},
+	getRandomPoke: function() {
+		let randNo = Math.floor(Math.random() * 700) + 21;
+		var self = this;
+
+		let xhr = new XMLHttpRequest();
+		xhr.addEventListener('load', function() {
+			self.setState({ 'randomName': JSON.parse(this.responseText).name.capitalize() });
+			self.setState({ randomSprite: './pokemon-sprites/sprites/pokemon/model/' + randNo + '.png' });
+		});
+		xhr.open('GET', 'http://pokeapi.co/api/v2/pokemon/' + randNo);
+		xhr.send();
+	},
+	render: function() {
+		return (
       <div>
-        <h1>It Works!</h1>
-        <p>This React project just works including <span className={styles.blueBg}>module</span> local styles.</p>
-        <p>Global bootstrap css import works too as you can see on the following button.</p>
-        <p><a className="btn btn-primary btn-lg">Enjoy!</a></p>
+      	<header>
+        	<h1>PokéAPI!</h1>
+        </header>
+        <RandomPoke name={this.state.randomName} sprite={this.state.randomSprite} />
       </div>
     )
-  }
-}
+	}
+})
+
+module.exports = App;
