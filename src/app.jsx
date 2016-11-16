@@ -48,24 +48,40 @@ const App = React.createClass({
 		this.setState({ randomName: this.getRandomPoke() });
 	},
 	getRandomPoke: function() {
-		let randNo = Math.floor(Math.random() * 700) + 21;
+		let randNo = Math.floor(Math.random() * 151);
 		var self = this;
 
 		let xhr = new XMLHttpRequest();
 		xhr.addEventListener('load', function() {
 			self.setState({ 'randomName': JSON.parse(this.responseText).name.capitalize() });
 			self.setState({ randomSprite: './pokemon-sprites/sprites/pokemon/model/' + randNo + '.png' });
+			document.getElementById('guessInput').style.display = 'block';
 		});
 		xhr.open('GET', 'http://pokeapi.co/api/v2/pokemon/' + randNo);
 		xhr.send();
+	},
+	userGuess: function(e) {
+		if (e.target.value.toLowerCase() == this.state.randomName.toLowerCase()) {
+			setTimeout(function() {
+				document.getElementById('questionBox').style.display = 'none';
+				document.getElementById('successBox').style.display = 'block';
+				document.getElementById('pokeImage').style.filter = 'brightness(100%)';
+			}, 500);
+		}
 	},
 	render: function() {
 		return (
       <div>
       	<header>
-        	<h1>PokéAPI!</h1>
+        	<h1>Who's that Pokémon!?</h1>
         </header>
         <RandomPoke name={this.state.randomName} sprite={this.state.randomSprite} />
+        <div id="questionBox" className={styles.questionBox}>
+        	<input name="guessInput" id="guessInput" onChange={this.userGuess}/>
+        </div>
+        <div id="successBox" className={styles.successBox}>
+        	<h2>Good job!</h2>
+        </div>
       </div>
     )
 	}

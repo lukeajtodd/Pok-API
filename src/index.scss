@@ -12,14 +12,30 @@
 .pokeImage {
     display: inherit;
     margin: 0 auto;
+    filter: brightness(0%);
+}
+
+.questionBox {
+    display: block;
+}
+
+.successBox {
+    display: none;
 }
 
 header {
     width: 80%;
     margin: 0 auto;
+    margin-top: 30px;
     border-bottom: solid 1px #333;
     padding: 30px;
     text-align: center;
+}
+
+input {
+    display: none;
+    margin: 0 auto;
+    border: 2px solid #ee1515;
 }
 
 h2 {
